@@ -9,25 +9,26 @@ class UserManage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            arrUsers: []
+            arrUsers: [] //khai bao mang
         }
     }
 
     async componentDidMount() {
-        let response = await getAllUsers('all')
-        if (response && response.errCode === 0) {
+        //ham goi api
+        let response = await getAllUsers('all') //lay het du lieu tu database
+        if (response && response.errCode === 0) { // neu co res va res bao thanh cong (errCode =0)
             this.setState({
-                arrUsers: response.users
+                arrUsers: response.users // day du lieu vao mang arrUsers
             })
-            console.log('check state users 1', this.state.arrUsers)
+            console.log('check state users 1', this.state.arrUsers) // check du lieu da dc vao mang
         }
-        console.log('get all user from node.js', response)
+        console.log('get all user from node.js', response) // check du lieu response
     }
 
 
     render() {
-        console.log('check render', this.state)
-        let arrUsers = this.state.arrUsers
+        console.log('check render', this.state) // check state 
+        let arrUsers = this.state.arrUsers //khai bao mang
         return (
             <div className="users-container">
                 <div className="title text-center"> MANAGE USERS</div>
@@ -41,7 +42,7 @@ class UserManage extends Component {
                             <th>Action</th>
                         </tr>
                         {
-                            arrUsers && arrUsers.map((item, index) => { //map js
+                            arrUsers && arrUsers.map((item, index) => { //map js == for loop
                                 console.log('check map', item, index)
                                 return ( //xong 1 vong lap tra ve 1 bang
                                     <tr>

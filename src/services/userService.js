@@ -6,7 +6,7 @@ const handleLoginApi = (userEmail, userPassword) => {
 }
 
 const getAllUsers = (inputId) => {
-    //${inputId}: template string es6
+    //${inputId}: template string es6 thay cho viec thay cho viec sd + va ten bien
     return axios.get(`/api/get-all-user?id=${inputId}`)
 }
 

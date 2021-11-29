@@ -10,4 +10,9 @@ const getAllUsers = (inputId) => {
     return axios.get(`/api/get-all-user?id=${inputId}`)
 }
 
-export { handleLoginApi, getAllUsers }
+const createNewUserServices = (data) => {
+    // console.log('check data from service: ', data)
+    return axios.post('/api/create-new-user', data)  // ket noi api ben nodejs
+}
+
+export { handleLoginApi, getAllUsers, createNewUserServices }

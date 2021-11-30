@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { emitter } from '../../utils/emitter'
+
 class ModalUser extends Component {
 
     constructor(props) {
@@ -13,6 +15,20 @@ class ModalUser extends Component {
             lastName: '',
             address: '',
         }
+
+        this.listenToEmitter() // khai bao state
+    }
+
+    listenToEmitter() { //                           ()=>{} khi co data tu se setState 
+        emitter.on('EVENT_CLEAR_MODAL_DATA', () => { //emitter.on ham nhan event from parent ( from child fire event to parent use props )
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                address: '',
+            })
+        })
     }
 
     componentDidMount() {
@@ -42,7 +58,7 @@ class ModalUser extends Component {
         })
     }
 
-    checkisValidInput = () => { // ham kt nhap day du thong tin 
+    checkisValidateInput = () => { // ham kt nhap day du thong tin 
         let isValid = true;
         let arrInput = ['email', 'password', 'firstName', 'lastName', 'address']
         for (let i = 0; i < arrInput.length; i++) {
@@ -58,7 +74,7 @@ class ModalUser extends Component {
     }
 
     handleAddNewuser = () => {
-        let isValid = this.checkisValidInput()
+        let isValid = this.checkisValidateInput()
         if (isValid === true) {
             //call api
             // console.log('check prop child', this.props)

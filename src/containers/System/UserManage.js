@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss'
-import { getAllUsers, createNewUserServices } from '../../services/userService'
+import { getAllUsers, createNewUserServices, deleteUserServices } from '../../services/userService'
 import ModalUser from './ModalUser';
+import { compose } from 'redux';
+import { reject } from 'lodash';
+import { emitter } from '../../utils/emitter'
 
 class UserManage extends Component {
 
@@ -55,11 +58,27 @@ class UserManage extends Component {
                     isOpenModalUser: false   // dong modal
                 })
             }
+
+            emitter.emit('EVENT_CLEAR_MODAL_DATA', data) // emitter.emit de ban su kien tu cha qua con
         } catch (e) {
             console.log(e)
         }
         // console.log('check data from child: ', data)
     }
+
+    handleDeleteUser = async (user) => {
+        try {
+            let res = await deleteUserServices(user.id) // *(user.id)
+            if (res && res.errCode === 0) {
+                await this.getAllUsersFromReact() // reset lai bang
+            } else {
+                alert(res.errMessage)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    }
+
     render() {
         console.log('check render', this.state) // check state 
         let arrUsers = this.state.arrUsers //khai bao mang
@@ -103,7 +122,7 @@ class UserManage extends Component {
                                                 <td>{item.address}</td>
                                                 <td>
                                                     <button className='btn-edit'><i className="fas fa-pen-square"></i></button>
-                                                    <button className='btn-delete'><i className="fas fa-trash-alt"></i></button>
+                                                    <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
 
                                                 </td>
                                             </>

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss'
-import { getAllUsers, createNewUserServices, deleteUserServices } from '../../services/userService'
+import { getAllUsers, createNewUserServices, deleteUserServices, editUserServices } from '../../services/userService'
 import ModalUser from './ModalUser';
+import ModalEditUser from './ModalEditUser';
+
 import { compose } from 'redux';
 import { reject } from 'lodash';
 import { emitter } from '../../utils/emitter'
@@ -14,7 +16,9 @@ class UserManage extends Component {
         super(props)
         this.state = {
             arrUsers: [],//khai bao mang
-            isOpenModalUser: false //khai bao thuoc tinh dong mo
+            isOpenModalUser: false, //khai bao thuoc tinh dong mo
+            isOpenModalEditUser: false,
+            editUser: {}
         }
     }
 
@@ -47,6 +51,12 @@ class UserManage extends Component {
         })
     }
 
+    handlecloseEditUser = () => {
+        this.setState({
+            isOpenModalEditUser: !this.state.isOpenModalEditUser,
+        })
+    }
+
     createNewUser = async (data) => { //data tu ModalUser gui qua
         try {
             let response = await createNewUserServices(data) // tao 1 user moi thong qua api va du lieu dc gui tu con qua
@@ -57,9 +67,9 @@ class UserManage extends Component {
                 this.setState({
                     isOpenModalUser: false   // dong modal
                 })
+                emitter.emit('EVENT_CLEAR_MODAL_DATA', data) // emitter.emit de ban su kien tu cha qua con
             }
 
-            emitter.emit('EVENT_CLEAR_MODAL_DATA', data) // emitter.emit de ban su kien tu cha qua con
         } catch (e) {
             console.log(e)
         }
@@ -70,12 +80,39 @@ class UserManage extends Component {
         try {
             let res = await deleteUserServices(user.id) // *(user.id)
             if (res && res.errCode === 0) {
-                await this.getAllUsersFromReact() // reset lai bang
+                await this.getAllUsersFromReact() // ham load lai bang 
+                this.setState({
+                    isOpenModalUser: false   // dong modal
+                })
             } else {
                 alert(res.errMessage)
             }
         } catch (error) {
             reject(error)
+        }
+    }
+
+    handleEditUser = (user) => {
+        console.log(user)
+        this.setState({
+            isOpenModalEditUser: true,
+            editUser: user
+        })
+    }
+
+    handleSaveUser = async (data) => {
+        try {
+            let response = await editUserServices(data) // tao 1 user moi thong qua api va du lieu dc gui tu con qua
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage)
+            } else {
+                await this.getAllUsersFromReact() // ham load lai bang 
+                this.setState({
+                    isOpenModalEditUser: false   // dong modal
+                })
+            }
+        } catch (e) {
+            console.log(e)
         }
     }
 
@@ -85,15 +122,19 @@ class UserManage extends Component {
         return (
             <div className="users-container">
                 <ModalUser
-
                     isOpen={this.state.isOpenModalUser} // khai bao bien
                     toggleFromUserManage={this.handlecloseAddNewUser} // khai bao bien
-                    test='abc'
                     createNewUser={this.createNewUser}
-
-
-
                 />
+                {this.state.isOpenModalEditUser &&
+                    <ModalEditUser
+
+                        isOpen={this.state.isOpenModalEditUser} // khai bao bien
+                        toggleFromEditUserManage={this.handlecloseEditUser} // khai bao bien
+                        currentUser={this.state.editUser}
+                        editUser={this.handleSaveUser}
+                    />
+                }
                 <div className="title text-center"> MANAGE USERS</div>
                 <div className="mx-1">
                     <button className="btn btn-primary px-3"
@@ -121,7 +162,7 @@ class UserManage extends Component {
                                                 <td>{item.lastName}</td>
                                                 <td>{item.address}</td>
                                                 <td>
-                                                    <button className='btn-edit'><i className="fas fa-pen-square"></i></button>
+                                                    <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className="fas fa-pen-square"></i></button>
                                                     <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash-alt"></i></button>
 
                                                 </td>

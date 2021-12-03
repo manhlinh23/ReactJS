@@ -1,4 +1,18 @@
 {
+    "homeheader": {
+        "speciality": "Medical Speciality",
+        "searchdoctor": "Find Doctor By Medical Speciality",
+        "facilities": "Health facilities",
+        "choooseclinic": "Choose hospital clinic",
+        "doctor": "Doctor",
+        "gooddoctor": "Choose a good doctor",
+        "packages": "Examination package",
+        "packagescheck": "General health check",
+        "base": "THE FOUNDATION OF HEALTH",
+        "takecare": "COMPREHENSIVE HEALTH CARE",
+        "navsupport": "Support",
+        "spec": "Specialized examination"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",

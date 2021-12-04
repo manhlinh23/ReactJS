@@ -46,6 +46,23 @@
             justify-content: center;
             align-items: center;
             gap: 5px;
+                .language-vi{
+                    cursor: pointer;
+                    &.action{
+                        span{
+                            color: yellow;
+                        }
+                    }
+                }
+
+                .language-en{
+                    cursor: pointer;
+                    &.action{
+                        span{
+                            color: blue;
+                        }
+                    }
+                }
                 .support{
                  gap: 5px;
                     i.fas.fa-question{

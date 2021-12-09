@@ -3,18 +3,44 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
 import Specialty from './Section/Specialty';
+import MedicalFacility from './Section/MedicalFacility';
+import OutStandingDoctor from './Section/OutStandingDoctor';
+import HanBook from './Section/HanBook';
+import About from './Section/About';
+import HomeFooter from './HomeFooter';
+import './HomePage.scss'
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 class HomePage extends Component {
 
     render() {
-
+        let settings = {
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 4,
+            slidesToScroll: 1
+        };
         return (
             <div>
                 <HomeHeader></HomeHeader>
                 {/* goi HH  */}
-                <Specialty></Specialty>
+                <Specialty settings={settings}></Specialty>
+
+                <MedicalFacility settings={settings}></MedicalFacility>
+
+                <OutStandingDoctor settings={settings}></OutStandingDoctor>
+
+                <HanBook settings={settings}></HanBook>
+
+                <About></About>
+
+                <HomeFooter></HomeFooter>
 
                 <div style={{ height: '300px' }}></div>
+
             </div>
         );
     }

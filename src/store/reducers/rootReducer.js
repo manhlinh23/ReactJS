@@ -30,4 +30,5 @@ export default (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
+    admin: adminReducer // khai bao key de sdung trong cac component cua React
 })

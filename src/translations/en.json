@@ -52,7 +52,7 @@
         "gender": "Gender",
         "position": "Position",
         "roleid": "RoleID",
-        "image": "Image",
+        "image": "Image ",
         "btn-add": "Add"
     }
 }

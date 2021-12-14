@@ -3,25 +3,50 @@ import actionTypes from '../actions/actionTypes';
 const initialState = { // khia bao cac state can su dung
     genders: [],
     roles: [],
-    position: []
+    positions: []
 }
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
-            console.log('check start', action)
+            // console.log('check start', action)
             return {
                 ...state
             }
         case actionTypes.FETCH_GENDER_SUCCESS:
             let copyState = { ...state } // tao ham chua cac dlieu cua initialState 
             copyState.genders = action.data // thay doi bien gender cua ham copy = bien gender cua adminAction sau khi hung du lieu 
-            console.log('check success', copyState)
+            // console.log('check success', copyState)
             return {
                 ...copyState // tra ra cac bien genders sau khi thay doi 
             }
         case actionTypes.FETCH_GENDER_FAILED:
-            console.log('check failed', action)
+            // console.log('check failed', action)
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_POSITION_SUCCESS:
+            state.positions = action.data
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_POSITION_FAILED:
+            // console.log('check failed', action)
+            state.positions = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ROLE_SUCCESS:
+            // console.log('check failed', action)
+            state.roles = action.data
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_FAILED:
+            // console.log('check failed', action)
+            state.roles = [];
             return {
                 ...state
             }

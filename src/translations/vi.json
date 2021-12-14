@@ -52,7 +52,7 @@
         "gender": "Giới tính",
         "position": "Vị trí",
         "roleid": "RoleID",
-        "image": "Hình đại diện",
+        "image": "Hình đại diện ",
         "btn-add": "Thêm mới"
     }
 }

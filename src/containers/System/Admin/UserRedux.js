@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { getAllCodeServives } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils'
 import * as actions from '../../../store/actions'
 import './UserRedux.scss'
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+import TableManageUser from './TableManageUser';
+
 
 class UserRedux extends Component {
 
@@ -84,6 +85,20 @@ class UserRedux extends Component {
             this.setState({
                 roleidArr: arrRoles,
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
+            })
+        }
+        if (prevProps.listUsers !== this.props.listUsers) { //sau khi them user thi listUser co su thay doi trong database -> set lai cac state
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                gender: '',
+                position: '',
+                role: '',
+                avatar: '',
             })
         }
     }
@@ -266,6 +281,9 @@ class UserRedux extends Component {
                                     onClick={() => this.handleSaveUser()}
                                 ><FormattedMessage id='manage-user.btn-add' /></button>
                             </div>
+                            <div className='col-12 my-5'>
+                                <TableManageUser />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -287,6 +305,7 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders, // redux tra ve cac gia tri sau khi da lay tu api o day
         positionRedux: state.admin.positions, // redux tra ve cac gia tri sau khi da lay tu api o day
         roleRedux: state.admin.roles, // redux tra ve cac gia tri sau khi da lay tu api o day
+        listUsers: state.admin.users,
     };
 };
 
@@ -296,8 +315,7 @@ const mapDispatchToProps = dispatch => {
         getPositionStart: () => dispatch(actions.fetchPositionStart()), // gui yeu cau lay dl tu react sang redux
         getRoleStart: () => dispatch(actions.fetchRoleStart()), // gui yeu cau lay dl tu react sang redux
         createNewUser: (data) => dispatch(actions.createNewUser(data)),//fire action create from button
-        // processLogout: () => dispatch(actions.processLogout()),
-        // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
+        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),// get all user sau khi them user
     };
 };
 

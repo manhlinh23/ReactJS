@@ -1,5 +1,6 @@
 import actionTypes from './actionTypes';
-import { getAllCodeServives, createNewUserServices } from '../../services/userService'
+import { getAllCodeServives, createNewUserServices, getAllUsers, deleteUserServices } from '../../services/userService'
+import { toast } from "react-toastify";
 
 // gender
 
@@ -34,6 +35,20 @@ export const createUserSuccess = () => ({ // truyen ten cua action va gtri dau v
 })
 export const createUserFailed = () => ({
     type: actionTypes.CREATE_USER_FAILED
+})
+
+export const fetchAllUsersSuccess = (data) => ({ // truyen ten cua action va gtri dau vao
+    type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+    data
+})
+export const fetchAllUsersFailed = () => ({
+    type: actionTypes.FETCH_ALL_USERS_FAILED
+})
+export const deleteUserSuccess = () => ({ // truyen ten cua action va gtri dau vao
+    type: actionTypes.DELETE_USER_SUCCESS,
+})
+export const deleteUserFailed = () => ({
+    type: actionTypes.DELETE_USER_FAILED
 })
 
 export const fetchGenderStart = () => {
@@ -82,19 +97,55 @@ export const fetchRoleStart = () => {
     }
 }
 
+export const fetchAllUsersStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllUsers("all") //hung du lieu sau khi goi api
+            if (res && res.errCode === 0) {
+                console.log('check res actions', res)
+                dispatch(fetchAllUsersSuccess(res.users.reverse())) // gan gtri vao ham success
+            } else {
+                dispatch(fetchAllUsersFailed());
+            }
+        } catch (error) {
+            dispatch(fetchAllUsersFailed());
+            console.log('fetchAllUsersStart', error)
+        }
+    }
+}
+
 export const createNewUser = (data) => {
     return async (dispatch, getState) => {
         try {
             let res = await createNewUserServices(data) //hung du lieu sau khi goi api
             console.log('check res createNewUser', res)
             if (res && res.errCode === 0) {
-                dispatch(createUserSuccess()) // gan gtri vao ham success
+                toast.success("CREATE SUCCESS");
+                dispatch(createUserSuccess()) // create user
+                dispatch(fetchAllUsersStart()) // refresh page
             } else {
                 dispatch(createUserFailed());
             }
         } catch (error) {
             dispatch(createUserFailed());
             console.log('createNewUser', error)
+        }
+    }
+}
+export const deleteUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await deleteUserServices(data) //hung du lieu sau khi goi api
+            if (res && res.errCode === 0) {
+                toast.success("DELETE SUCCESS");
+                dispatch(deleteUserSuccess()) // delete user
+                dispatch(fetchAllUsersStart()) // refresh page
+            } else {
+                dispatch(deleteUserFailed());
+            }
+        } catch (error) {
+            dispatch(deleteUserFailed());
+            console.log('deleteUser', error)
         }
     }
 }

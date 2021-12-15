@@ -3,7 +3,8 @@ import actionTypes from '../actions/actionTypes';
 const initialState = { // khia bao cac state can su dung
     genders: [],
     roles: [],
-    positions: []
+    positions: [],
+    users: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -47,6 +48,16 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.FETCH_ROLE_FAILED:
             // console.log('check failed', action)
             state.roles = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_USERS_SUCCESS:
+            state.users = action.data // action.data (data phai giong vs data ben action)
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_USERS_FAILED:
+            state.users = [];
             return {
                 ...state
             }

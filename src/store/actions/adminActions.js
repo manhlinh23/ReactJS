@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getAllCodeServives } from '../../services/userService'
+import { getAllCodeServives, createNewUserServices } from '../../services/userService'
 
 // gender
 
@@ -28,6 +28,12 @@ export const fetchRoleSuccess = (data) => ({ // truyen ten cua action va gtri da
 })
 export const fetchRoleFailed = () => ({
     type: actionTypes.FETCH_ROLE_FAILED
+})
+export const createUserSuccess = () => ({ // truyen ten cua action va gtri dau vao
+    type: actionTypes.CREATE_USER_SUCCESS
+})
+export const createUserFailed = () => ({
+    type: actionTypes.CREATE_USER_FAILED
 })
 
 export const fetchGenderStart = () => {
@@ -72,6 +78,23 @@ export const fetchRoleStart = () => {
         } catch (error) {
             dispatch(fetchRoleFailed());
             console.log('fetchRoleFailed', error)
+        }
+    }
+}
+
+export const createNewUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createNewUserServices(data) //hung du lieu sau khi goi api
+            console.log('check res createNewUser', res)
+            if (res && res.errCode === 0) {
+                dispatch(createUserSuccess()) // gan gtri vao ham success
+            } else {
+                dispatch(createUserFailed());
+            }
+        } catch (error) {
+            dispatch(createUserFailed());
+            console.log('createNewUser', error)
         }
     }
 }

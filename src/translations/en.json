@@ -53,6 +53,7 @@
         "position": "Position",
         "roleid": "RoleID",
         "image": "Image ",
-        "btn-add": "Add"
+        "btn-add": "Add",
+        "edit": "Save"
     }
 }

@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { getAllCodeServives, createNewUserServices, getAllUsers, deleteUserServices } from '../../services/userService'
+import { getAllCodeServives, createNewUserServices, getAllUsers, deleteUserServices, editUserServices } from '../../services/userService'
 import { toast } from "react-toastify";
 
 // gender
@@ -49,6 +49,12 @@ export const deleteUserSuccess = () => ({ // truyen ten cua action va gtri dau v
 })
 export const deleteUserFailed = () => ({
     type: actionTypes.DELETE_USER_FAILED
+})
+export const editUserSuccess = () => ({ // truyen ten cua action va gtri dau vao
+    type: actionTypes.UPDATE_USER_SUCCESS,
+})
+export const editUserFailed = () => ({
+    type: actionTypes.UPDATE_USER_FAILED
 })
 
 export const fetchGenderStart = () => {
@@ -146,6 +152,25 @@ export const deleteUser = (data) => {
         } catch (error) {
             dispatch(deleteUserFailed());
             console.log('deleteUser', error)
+        }
+    }
+}
+export const editUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await editUserServices(data) //hung du lieu sau khi goi api
+            console.log('check res editUser', res)
+            if (res && res.errCode === 0) {
+                toast.success("EDIT SUCCESS");
+                dispatch(editUserSuccess()) // delete user
+                dispatch(fetchAllUsersStart()) // refresh page
+            } else {
+                toast.warn("EDIT FAIL");
+                dispatch(editUserFailed());
+            }
+        } catch (error) {
+            dispatch(editUserFailed());
+            console.log('editUser', error)
         }
     }
 }

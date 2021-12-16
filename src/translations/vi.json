@@ -53,6 +53,7 @@
         "position": "Vị trí",
         "roleid": "RoleID",
         "image": "Hình đại diện ",
-        "btn-add": "Thêm mới"
+        "btn-add": "Thêm mới",
+        "edit": "Lưu"
     }
 }

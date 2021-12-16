@@ -29,6 +29,11 @@ class TableManageUser extends Component {
     deleteUser = (data) => {
         this.props.deleteUser(data.id)
     }
+
+    handleEditUser = (data) => {
+        this.props.handleEditUserFromParent(data) //truyen state tu con sang cha 
+    }
+
     render() {
         let arrUser = this.state.usersRedux
         return (
@@ -45,18 +50,16 @@ class TableManageUser extends Component {
                     {arrUser && arrUser.length > 0 &&
                         arrUser.map((item, index) => {
                             return (
-                                <>
-                                    <tr key={index}>
-                                        <td>{item.email}</td>
-                                        <td>{item.firstName}</td>
-                                        <td>{item.lastName}</td>
-                                        <td>{item.address}</td>
-                                        <td>
-                                            <button className='btn-edit'><i className="fas fa-pen-square"></i></button>
-                                            <button className='btn-delete' onClick={() => this.deleteUser(item)} ><i className="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                </>
+                                <tr key={index}>
+                                    <td>{item.email}</td>
+                                    <td>{item.firstName}</td>
+                                    <td>{item.lastName}</td>
+                                    <td>{item.address}</td>
+                                    <td>
+                                        <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className="fas fa-pen-square"></i></button>
+                                        <button className='btn-delete' onClick={() => this.deleteUser(item)} ><i className="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
                             )
                         })
                     }

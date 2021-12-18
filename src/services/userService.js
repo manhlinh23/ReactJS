@@ -31,4 +31,8 @@ const getAllCodeServives = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`)
 }
 
-export { handleLoginApi, getAllUsers, createNewUserServices, deleteUserServices, editUserServices, getAllCodeServives }
+const getTopDoctorHomeService = (limit) => {
+    return axios.get(`/api/top-doctor-home?limit=${limit}`)
+}
+
+export { getTopDoctorHomeService, handleLoginApi, getAllUsers, createNewUserServices, deleteUserServices, editUserServices, getAllCodeServives }

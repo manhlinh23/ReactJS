@@ -1,74 +1,71 @@
-
-.section-share{
-    &.section-specialty{
+.section-share {
+    &.section-specialty {
         background: #f5f5f5;
     }
 
-    &.section-outstanding-doctor{
+    &.section-outstanding-doctor {
         background: #f5f5f5;
     }
 
-    &.section-about{
+    &.section-about {
         height: 500px !important;
         border-top: 1px solid #f5f5f5;
         border-bottom: 1px solid #f5f5f5;
     }
 
-        .section-body{
-            .section-customize{
-                .bg-image{
-                    width: 278px;
-                    height: 150px;
-                    background-position: center center;
-                    background-repeat: no-repeat !important ;
-                    border-style: cover;
-                    background-color: #eee;
-                    
-                    &.section-specialty{
-                        background-image: url(../../assets/specialty/120331-co-xuong-khop.jpg);
-                    }
+    .section-body {
+        .section-customize {
+            .bg-image {
+                width: 278px;
+                height: 150px;
+                background-position: center center;
+                background-repeat: no-repeat !important ;
+                border-style: cover;
+                background-color: #eee;
 
-                    &.section-medical-facility{
-                        background-image: url(../../assets/medical-facility/172740-sihg.jpg);
-                    }
+                &.section-specialty {
+                    background-image: url(../../assets/specialty/120331-co-xuong-khop.jpg);
+                }
 
-                    &.section-outstanding-doctor{
-                        background-image: url(../../assets/doctor/103848anh-dai-dien-bs.jpg);
-                        height: 120px !important;
-                        width: 120px !important;
-                        margin: 0 auto;
-                        border-radius: 50%;
-                    }
+                &.section-medical-facility {
+                    background-image: url(../../assets/medical-facility/172740-sihg.jpg);
+                }
 
-                    &.section-hanbook{
-                        background-image: url(../../assets/hanbook/155831vietlife-tran-binh-trong.jpg);
-                    }
+                &.section-outstanding-doctor {
+                    // background-image: url(../../assets/doctor/103848anh-dai-dien-bs.jpg);
+                    height: 120px !important;
+                    width: 120px !important;
+                    margin: 0 auto;
+                    border-radius: 50%;
+                }
+
+                &.section-hanbook {
+                    background-image: url(../../assets/hanbook/155831vietlife-tran-binh-trong.jpg);
                 }
             }
         }
-} 
+    }
+}
 
-
-
-.section-share{
+.section-share {
     height: 300px;
 
-    .section-container{
+    .section-container {
         margin: 0 100px;
         display: flex;
         flex-direction: column;
 
-        .section-header{
+        .section-header {
             height: 60px;
             margin-bottom: 30px;
             padding-top: 30px;
 
-            .title-section{
+            .title-section {
                 font-size: 22px;
                 font-weight: 600;
             }
 
-            .btn-section{
+            .btn-section {
                 float: right;
                 padding: 10px 15px;
                 border: none;
@@ -79,60 +76,56 @@
                 cursor: pointer;
                 text-transform: uppercase;
 
-                &:hover{
+                &:hover {
                     color: #fff;
                     background: yellow;
                 }
             }
         }
-
     }
-
-
-
 }
 
-.section-outstanding-doctor{
-    .outer-bg{
+.section-outstanding-doctor {
+    .outer-bg {
         display: flex;
         justify-content: center;
         margin-bottom: 10px;
     }
 
-    .section-customize{
+    .section-customize {
         padding: 5px;
 
-        .customize-border{
+        .customize-border {
             border: 1px solid grey;
             padding: 10px;
         }
     }
 }
 
-.home-footer{
+.home-footer {
     text-align: center;
     padding-top: 8px;
-    a{
+    a {
         text-decoration: unset;
     }
 }
 
-.section-about{
+.section-about {
     padding: 0 100px;
-    .section-about-header{
+    .section-about-header {
         padding: 20px 10px;
         font-size: 20px;
         font-weight: 600;
     }
-    
-    .section-about-content{
+
+    .section-about-content {
         display: flex;
         gap: 10px;
         width: 100%;
-        .content-left{
+        .content-left {
             width: 60%;
         }
-        .content-right{
+        .content-right {
             width: 40%;
             text-align: justify;
             font-style: italic;
@@ -140,35 +133,35 @@
     }
 }
 
-//reset slick 
-    .slick-prev{
-        left: -10px !important;
-        z-index: 1 !important;
-        height: 48px !important;
-        width: 44px !important;
-        background: #FFF !important;
-        border: 2px solid #d7d7d7 !important;
+//reset slick
+.slick-prev {
+    left: -10px !important;
+    z-index: 1 !important;
+    height: 48px !important;
+    width: 44px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
 
-        &:hover{
-            background: #eceaea !important;
-        }
+    &:hover {
+        background: #eceaea !important;
     }
+}
 
-    .slick-prev:before,
-    .slick-next:before {
-        font-family: FontAwesome !important;
-        color: red !important;
-    }
-    
-    .slick-next{
-       right: -10px !important;
-        z-index: 1 !important;
-        height: 48px !important;
-        width: 44px !important;
-        background: #FFF !important;
-        border: 2px solid #d7d7d7 !important;
+.slick-prev:before,
+.slick-next:before {
+    font-family: FontAwesome !important;
+    color: red !important;
+}
 
-        &:hover{
-            background: #eceaea !important;
-        }
+.slick-next {
+    right: -10px !important;
+    z-index: 1 !important;
+    height: 48px !important;
+    width: 44px !important;
+    background: #fff !important;
+    border: 2px solid #d7d7d7 !important;
+
+    &:hover {
+        background: #eceaea !important;
     }
+}

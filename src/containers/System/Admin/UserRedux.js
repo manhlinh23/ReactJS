@@ -70,7 +70,7 @@ class UserRedux extends Component {
             let arrGenders = this.props.genderRedux
             this.setState({
                 genderArr: arrGenders, //gan cac gtri cua redux cho state react
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : ''
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : ''
                 // check co gtri cua redux co hay k, neu co gan gtri dau tien cho state gender
             })
         }
@@ -78,14 +78,14 @@ class UserRedux extends Component {
             let arrPos = this.props.positionRedux
             this.setState({
                 positionArr: arrPos,
-                position: arrPos && arrPos.length > 0 ? arrPos[0].key : ''
+                position: arrPos && arrPos.length > 0 ? arrPos[0].keyMap : ''
             })
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let arrRoles = this.props.roleRedux
             this.setState({
                 roleidArr: arrRoles,
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : ''
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : ''
             })
         }
         if (prevProps.listUsers !== this.props.listUsers) { //sau khi them user thi listUser co su thay doi trong database -> set lai cac state
@@ -103,10 +103,9 @@ class UserRedux extends Component {
                 position: '',
                 role: '',
                 avatar: '',
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '', //set lai gtri dau tien
-                position: arrPos && arrPos.length > 0 ? arrPos[0].key : '',
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
-                avatar: '',
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '', //set lai gtri dau tien
+                position: arrPos && arrPos.length > 0 ? arrPos[0].keyMap : '',
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
                 action: CRUD_ACTIONS.CREATE,
                 previewImgURL: '',
             })
@@ -151,7 +150,8 @@ class UserRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
-                avatar: this.state.avatar,
+                previewImgUrl: this.state.previewImgUrl,
+                avatar: this.state.avatar
             })
         }
 
@@ -284,7 +284,7 @@ class UserRedux extends Component {
                                         genderRedux.map((item, index) => {
                                             return (
                                                 // value={thuoc tinh(key,name,id,...) cua item}
-                                                <option key={index} value={item.key}>
+                                                <option key={index} value={item.keyMap}>
 
                                                     {language === LANGUAGES.EN ? item.valueEn : item.valueVi}
                                                 </option>
@@ -300,7 +300,7 @@ class UserRedux extends Component {
                                     {positionRedux && positionRedux.length > 0 &&
                                         positionRedux.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.key}>
+                                                <option key={index} value={item.keyMap}>
                                                     {language === LANGUAGES.EN ? item.valueEn : item.valueVi}
                                                 </option>
                                             )
@@ -315,7 +315,7 @@ class UserRedux extends Component {
                                     {roleRedux && roleRedux.length > 0 &&
                                         roleRedux.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.key}>
+                                                <option key={index} value={item.keyMap}>
                                                     {language === LANGUAGES.EN ? item.valueEn : item.valueVi}
                                                 </option>
                                             )
@@ -330,7 +330,7 @@ class UserRedux extends Component {
                                         onChange={(event) => this.handleChangeImage(event)} />
                                     <label className='label-upload' htmlFor='previewImg'><FormattedMessage id='manage-user.image' /><i className='fas fa-upload'></i></label>
                                     <div className='preview-image' style={{ backgroundImage: `url(${this.state.previewImgUrl})` }}
-                                        onClick={() => this.openPreviewImage()}
+                                        onClick={() => this.openPreviewImage()} value={avatar}
                                     ></div>
                                 </div>
                             </div>

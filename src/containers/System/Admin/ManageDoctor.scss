@@ -1,0 +1,28 @@
+.manage-doctor-container {
+    margin: 20px;
+    .manage-doctor-editor {
+        .save-btn {
+            margin-top: 5px;
+            border: 1px solid;
+            border-radius: 5px;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+
+    .manage-doctor-content {
+        display: flex;
+        margin: 10px 0;
+        .left-content {
+            width: 40%;
+            margin-right: 5px;
+        }
+
+        .right-content {
+            width: 60%;
+            right: 0;
+        }
+    }
+}

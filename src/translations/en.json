@@ -55,5 +55,9 @@
         "image": "Image ",
         "btn-add": "Add",
         "edit": "Save"
+    },
+    "homepage": {
+        "outstanding-doctor-lastweek": "Outstanding Doctor Lastweek",
+        "more": "More"
     }
 }

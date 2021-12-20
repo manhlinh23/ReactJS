@@ -37,6 +37,7 @@
                     width: 120px !important;
                     margin: 0 auto;
                     border-radius: 50%;
+                    background-size: cover;
                 }
 
                 &.section-hanbook {
@@ -164,4 +165,8 @@
     &:hover {
         background: #eceaea !important;
     }
+}
+
+.slick-disable {
+    display: none !important;
 }

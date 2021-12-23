@@ -1,5 +1,10 @@
 import actionTypes from './actionTypes';
-import { getTopDoctorHomeService, getAllCodeServives, createNewUserServices, getAllUsers, deleteUserServices, editUserServices } from '../../services/userService'
+import {
+    createInfoDoctorService,
+    getAllDoctors, getTopDoctorHomeService, getAllCodeServives,
+    createNewUserServices,
+    getAllUsers, deleteUserServices, editUserServices
+} from '../../services/userService'
 import { toast } from "react-toastify";
 
 // gender
@@ -43,6 +48,14 @@ export const fetchAllUsersSuccess = (data) => ({ // truyen ten cua action va gtr
 })
 export const fetchAllUsersFailed = () => ({
     type: actionTypes.FETCH_ALL_USERS_FAILED
+})
+
+export const fetchAllDoctorsSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+    data
+})
+export const fetchAllDoctorsFailed = () => ({
+    type: actionTypes.FETCH_ALL_DOCTORS_FAILED
 })
 export const deleteUserSuccess = () => ({ // truyen ten cua action va gtri dau vao
     type: actionTypes.DELETE_USER_SUCCESS,
@@ -192,3 +205,43 @@ export const fetchTopDoctor = () => {
         }
     }
 }
+
+export const fetchAllDoctors = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllDoctors()
+            // console.log('fetchAllDoctors', res)
+            if (res && res.errCode === 0) {
+                dispatch({ type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS, data: res.data })
+            } else {
+                dispatch({ type: actionTypes.FETCH_ALL_DOCTORS_FAILED })
+            }
+
+        } catch (error) {
+            console.log('Error fetchAllDoctors', error)
+            dispatch(fetchAllDoctorsFailed())
+        }
+    }
+}
+
+export const createInfoDoctorActions = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createInfoDoctorService(data)
+            if (res && res.errCode === 0) {
+                toast.success("CREATE SUCCESS");
+                dispatch({ type: actionTypes.CREATE_INFO_DOCTOR_SUCCESS })
+            } else {
+                toast.warn("CREATE FAILED");
+                dispatch({ type: actionTypes.CREATE_INFO_DOCTOR_FAILED })
+            }
+
+        } catch (error) {
+            toast.warn("CREATE FAILED");
+            console.log('Error createInfoDoctorActions', error)
+            dispatch({ type: actionTypes.CREATE_INFO_DOCTOR_FAILED })
+        }
+    }
+}
+
+

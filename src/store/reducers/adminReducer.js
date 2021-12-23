@@ -6,6 +6,7 @@ const initialState = { // khia bao cac state can su dung
     positions: [],
     users: [],
     topDoctors: [],
+    listDoctors: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -69,6 +70,17 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_TOP_DOCTORS_FAILED:
             state.topDoctors = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
+            state.listDoctors = action.data // action.data (data phai giong vs data ben action)
+            // console.log('check reducer: ', action);
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_DOCTORS_FAILED:
+            state.listDoctors = [];
             return {
                 ...state
             }

@@ -6,15 +6,12 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
+import { LANGUAGES } from '../../../utils';
 
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-];
+
 
 
 
@@ -24,28 +21,72 @@ class ManageDoctor extends Component {
         super(props)
         this.state = {
             contentHtml: '',
-            contentMarkdown: '',
+            contentMarkDown: '',
             selectedOption: '',
             desc: '',
+            listDoctors: [],
         }
     }
 
     componentDidMount() {
+        this.props.fetchAllDoctors()
+
+    }
+
+
+    builtDataInputSelect = (data) => {
+        let result = []
+        let { language } = this.props
+        if (data && data.length > 0) {
+            data.map((item, index) => {
+                let object = {}
+                let labelEn = `${item.lastName} ${item.firstName}`
+                let labelVi = `${item.firstName} ${item.lastName}`
+
+                object.label = language === LANGUAGES.EN ? labelEn : labelVi
+                object.id = item.id
+
+                result.push(object)
+            })
+        }
+        return result
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.listDoctorsRedux !== this.props.listDoctorsRedux ||
+            prevProps.language !== this.props.language) {
+            let dataSelect = this.builtDataInputSelect(this.props.listDoctorsRedux)
+            this.setState({
+                listDoctors: dataSelect
+            })
+        }
 
+        // if (prevProps.language !== this.props.language) {
+        //     let dataSelect = this.builtDataInputSelect(this.props.listDoctorsRedux)
+        //     this.setState({
+        //         listDoctors: dataSelect
+        //     })
+        // }
     }
 
     handleEditorChange = ({ html, text }) => {
         this.setState({
             contentHtml: html,
-            contentMarkdown: text,
+            contentMarkDown: text,
         })
     }
 
     handleSaveContentMarkdown = () => {
-        console.log('check state: ', this.state);
+        this.props.createInfoDoctorActions({
+            contentHTML: this.state.contentHtml,
+            contentMarkdown: this.state.contentMarkDown,
+            description: this.state.desc,
+            doctorId: this.state.selectedOption.id
+        })
+        // this.setState({
+        //     selectedOption: this.state.selectedOption.value
+        // })
+        // console.log('sO: ', this.state.selectedOption);
     }
 
     handleChange = (selectedOption) => {
@@ -55,11 +96,10 @@ class ManageDoctor extends Component {
     handleChangeDesc = (event) => {
         this.setState({
             desc: event.target.value
-        }, () => {
-            console.log('check: ', this.state.desc);
         })
     }
     render() {
+
         let { selectedOption } = this.state;
         return (
             <div className='manage-doctor-container'>
@@ -70,7 +110,7 @@ class ManageDoctor extends Component {
                         <Select
                             value={selectedOption}
                             onChange={this.handleChange}
-                            options={options}
+                            options={this.state.listDoctors}
                         />
                     </div>
                     <div className='right-content form-group'>
@@ -97,11 +137,16 @@ class ManageDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
+        listDoctorsRedux: state.admin.listDoctors,
+        language: state.app.language,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
+        createInfoDoctorActions: (data) => dispatch(actions.createInfoDoctorActions(data)),
+
     };
 };
 

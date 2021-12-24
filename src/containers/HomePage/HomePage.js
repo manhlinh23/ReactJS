@@ -25,7 +25,8 @@ class HomePage extends Component {
         };
         return (
             <div>
-                <HomeHeader></HomeHeader>
+                {/* khai bao bien isShowBanner */}
+                <HomeHeader isShowBanner={true}></HomeHeader>
                 {/* goi HH  */}
                 <Specialty settings={settings}></Specialty>
 

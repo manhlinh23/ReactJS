@@ -16,9 +16,13 @@ export const adminMenu = [{ //hệ thống
         //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
         // ]
     },
+    // {
+    //     name: 'menu.admin.manage-admin',
+    //     link: '/system/user-admin'
+    // },
     {
-        name: 'menu.admin.manage-admin',
-        link: '/system/user-admin'
+        name: 'menu.doctor.manage-schedule',
+        link: '/doctor/manage-schedule'
     },
     ]
 },
@@ -46,4 +50,13 @@ export const adminMenu = [{ //hệ thống
         link: '/system/manage-handbook'
     }]
 },
+];
+export const doctorMenu = [{ //hệ thống 
+    name: 'menu.doctor.manage-schedule',
+    menus: [{
+        name: 'menu.doctor.schedule',
+        link: '/doctor/manage-schedule'
+    },
+    ]
+}
 ];

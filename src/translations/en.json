@@ -27,6 +27,10 @@
                 "header": "System-parameter"
             }
         },
+        "doctor": {
+            "schedule": "Schedule",
+            "manage-schedule": "Manage Doctor's schedule"
+        },
         "admin": {
             "manage-user": "User",
             "manage-doctor": "Doctor",

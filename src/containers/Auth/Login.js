@@ -71,6 +71,12 @@ class Login extends Component {
         })
     }
 
+    handleEnter = (event) => {
+        if (event.key === 'Enter') {
+            this.handleLogin()
+        }
+    }
+
     render() {
 
         return (
@@ -97,7 +103,8 @@ class Login extends Component {
                                 <input type={this.state.isShowPassword ? 'text' : 'password'} // neu nhan vao con mat thi type = text (hien chu) va nguoc lai
                                     className="form-control"
                                     placeholder="Enter your password"
-                                    onChange={(event) => this.handleOnChangePassword(event)} />
+                                    onChange={(event) => this.handleOnChangePassword(event)}
+                                    onKeyDown={(event) => this.handleEnter(event)} />
                                 <span
                                     onClick={() => { this.handleShowHidePassword() }} //onClick nay xay ra 2 TH
                                 >

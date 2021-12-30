@@ -7,6 +7,7 @@ const initialState = { // khia bao cac state can su dung
     users: [],
     topDoctors: [],
     listDoctors: [],
+    timeDoctor: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -81,6 +82,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_DOCTORS_FAILED:
             state.listDoctors = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TIME_DOCTORS_SUCCESS:
+            state.timeDoctor = action.dataTime
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TIME_DOCTORS_FAILED:
+            state.timeDoctor = [];
             return {
                 ...state
             }

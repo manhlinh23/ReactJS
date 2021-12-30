@@ -6,7 +6,6 @@ import { getAllUsers, createNewUserServices, deleteUserServices, editUserService
 import ModalUser from './ModalUser';
 import ModalEditUser from './ModalEditUser';
 
-import { compose } from 'redux';
 import { reject } from 'lodash';
 import { emitter } from '../../utils/emitter'
 

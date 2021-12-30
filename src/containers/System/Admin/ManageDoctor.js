@@ -27,7 +27,6 @@ class ManageDoctor extends Component {
 
     componentDidMount() {
         this.props.fetchAllDoctors()
-
     }
 
 
@@ -173,7 +172,6 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
         createInfoDoctorActions: (data) => dispatch(actions.createInfoDoctorActions(data)),
-
     };
 };
 

@@ -244,4 +244,20 @@ export const createInfoDoctorActions = (data) => {
     }
 }
 
+export const fetchTimeDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeServives("TIME") //hung du lieu sau khi goi api
+            if (res && res.errCode === 0) {
+                dispatch({ type: actionTypes.FETCH_TIME_DOCTORS_SUCCESS, dataTime: res.data })
+            } else {
+                dispatch({ type: actionTypes.FETCH_TIME_DOCTORS_FAILED })
+            }
+        } catch (error) {
+            dispatch({ type: actionTypes.FETCH_TIME_DOCTORS_FAILED })
+            console.log('fetchTimeDoctor', error)
+        }
+    }
+}
+
 

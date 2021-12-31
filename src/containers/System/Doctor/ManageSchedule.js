@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ManageSchedule.scss'
 import { FormattedMessage } from 'react-intl';
-import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
+import { CRUD_ACTIONS, LANGUAGES, dateFormat } from '../../../utils';
 import Select from 'react-select';
 import * as actions from '../../../store/actions'
 import DatePicker from '../../../components/Input/DatePicker';
+import { toast } from "react-toastify";
+import _ from 'lodash'
+import moment from 'moment'
+
 
 
 class ManageSchedule extends Component {
@@ -52,8 +56,13 @@ class ManageSchedule extends Component {
         }
 
         if (prevProps.timeDoctor !== this.props.timeDoctor) {
+            let data = this.props.timeDoctor
+            if (data && data.length > 0) {
+                //tao 1 mang moi chua du lieu cua timeDoctor, copy mang vao data + bien isSelected: false
+                data = data.map(item => ({ ...item, isSeclected: false }))
+            }
             this.setState({
-                allTimeDoctor: this.props.timeDoctor
+                allTimeDoctor: data // gan data vua them bien isSelected vao allTimeDoctor
             })
         }
     }
@@ -70,11 +79,62 @@ class ManageSchedule extends Component {
         })
     }
 
+    handleClickBtnTime = (time) => {
+        let { allTimeDoctor } = this.state
+
+        if (allTimeDoctor && allTimeDoctor.length > 0) {
+            allTimeDoctor = allTimeDoctor.map(item => {
+                if (item.id === time.id) item.isSeclected = !item.isSeclected // thay doi gia tri qua lai cua isSelected
+                return item
+            })
+
+            this.setState({
+                allTimeDoctor: allTimeDoctor // sau khi thay doi se gan vao bien aTD
+            })
+        }
+    }
+
+    handleSaveSchedule = () => {
+        let { allTimeDoctor, selectedOption, currentDate } = this.state
+        let result = [] // tao 1 mang moi 
+
+        if (!currentDate) {
+            toast.error("Missing date");
+            return
+        }
+        if (!selectedOption && _.isEmpty(selectedOption)) {
+            toast.error("Missing doctor");
+            return
+        }
+
+        //format date to dd/mm/yyyy
+        let formateDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+
+        if (allTimeDoctor && allTimeDoctor.length > 0) {
+            let selectedTime = allTimeDoctor.filter(item => item.isSeclected == true) // loc cac bien isSelected coftri la true
+            if (selectedTime && selectedTime.length > 0) {
+                //gan cac gia vap mang result 
+                //tra ve 1 mang moi khi thay doi gtri cac bien trong mang
+                selectedTime.map(item => {
+                    let object = {}
+                    object.doctorId = selectedOption.id
+                    object.date = formateDate
+                    object.time = item.keyMap;
+                    //day cac du lieu vao mang result
+                    result.push(object)
+                })
+            } else {
+                toast.error("Missing time");
+                return
+            }
+        }
+    }
+
     render() {
         let { selectedOption } = this.state;
         let { allTimeDoctor } = this.state
         let { language } = this.props
-        console.log('check props', this.state);
+        console.log('check props', allTimeDoctor);
         return (
             <div className='manage-schedule-container'>
                 <div className='m-s-title title'><FormattedMessage id='manage-schedule.title' /></div>
@@ -101,7 +161,10 @@ class ManageSchedule extends Component {
                             {allTimeDoctor && allTimeDoctor.length > 0 &&
                                 allTimeDoctor.map((item, index) => {
                                     return (
-                                        <button className='btn btn-warning' key={index}>
+                                        <button
+                                            onClick={() => this.handleClickBtnTime(item)}
+                                            className={item.isSeclected == true ? 'btn btn-warning btn-time' : 'btn btn-time'}
+                                            key={index}>
                                             {language === LANGUAGES.EN ? item.valueEn : item.valueVi}
                                         </button>
                                     )
@@ -109,7 +172,11 @@ class ManageSchedule extends Component {
                             }
                         </div>
                     </div>
-                    <button className='col-3 btn btn-primary'><FormattedMessage id='manage-schedule.btn-save' /></button>
+                    <button
+                        onClick={() => this.handleSaveSchedule()}
+                        className='col-3 btn btn-primary'>
+                        <FormattedMessage id='manage-schedule.btn-save' />
+                    </button>
                 </div>
             </div>
         );

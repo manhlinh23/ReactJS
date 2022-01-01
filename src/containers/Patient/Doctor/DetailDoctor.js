@@ -4,6 +4,7 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss'
 import { getDetailDoctor } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
+import DoctorSchedule from './DoctorSchedule';
 
 
 class DetailDoctor extends Component {
@@ -39,8 +40,8 @@ class DetailDoctor extends Component {
         let { language } = this.props
         let labelEn = '', labelVi = ''
         if (detailDoctor && detailDoctor.positionData) {
-            labelEn = `${detailDoctor.positionData.valueVi} ${detailDoctor.firstName} ${detailDoctor.lastName}`
-            labelVi = `${detailDoctor.positionData.valueEn} ${detailDoctor.lastName} ${detailDoctor.firstName}`
+            labelEn = `${detailDoctor.positionData.valueEn} ${detailDoctor.firstName} ${detailDoctor.lastName}`
+            labelVi = `${detailDoctor.positionData.valueVi} ${detailDoctor.lastName} ${detailDoctor.firstName}`
         }
         return (
             <>
@@ -64,7 +65,14 @@ class DetailDoctor extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='schedule-doctor'></div>
+                    <div className='schedule-doctor'>
+                        <div className='content-left'>
+                            <DoctorSchedule
+                                detailDoctor={detailDoctor && detailDoctor.id ? detailDoctor.id : -1} //truyen props tu cha sang con
+                            />
+                        </div>
+                        <div className='content-right'></div>
+                    </div>
                     <div className='detail-infor-doctor' >
                         {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML
                             // convert html to text

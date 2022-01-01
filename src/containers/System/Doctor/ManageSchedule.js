@@ -9,6 +9,7 @@ import DatePicker from '../../../components/Input/DatePicker';
 import { toast } from "react-toastify";
 import _ from 'lodash'
 import moment from 'moment'
+import { saveBulkScheduleDoctor } from '../../../services/userService'
 
 
 
@@ -94,7 +95,7 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { allTimeDoctor, selectedOption, currentDate } = this.state
         let result = [] // tao 1 mang moi 
 
@@ -108,7 +109,9 @@ class ManageSchedule extends Component {
         }
 
         //format date to dd/mm/yyyy
-        let formateDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        // let formateDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER)
+        //convert date to string
+        let formateDate = new Date(currentDate).getTime();
 
         if (allTimeDoctor && allTimeDoctor.length > 0) {
             let selectedTime = allTimeDoctor.filter(item => item.isSeclected == true) // loc cac bien isSelected coftri la true
@@ -119,7 +122,7 @@ class ManageSchedule extends Component {
                     let object = {}
                     object.doctorId = selectedOption.id
                     object.date = formateDate
-                    object.time = item.keyMap;
+                    object.timeType = item.keyMap;
                     //day cac du lieu vao mang result
                     result.push(object)
                 })
@@ -128,6 +131,14 @@ class ManageSchedule extends Component {
                 return
             }
         }
+        //push dlieu xuong db 
+        let res = await saveBulkScheduleDoctor({
+            arrSchedule: result,
+            doctorId: selectedOption.id,
+            date: formateDate
+        })
+
+        console.log('check api: ', res);
     }
 
     render() {

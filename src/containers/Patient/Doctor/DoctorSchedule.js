@@ -5,6 +5,7 @@ import moment from 'moment';
 import localization from 'moment/locale/vi'
 import { LANGUAGES } from '../../../utils'
 import { getScheduleDoctorByDate } from '../../../services/userService'
+import { FormattedMessage } from 'react-intl';
 
 
 
@@ -13,6 +14,7 @@ class DoctorSchedule extends Component {
         super(props)
         this.state = {
             allDays: [],
+            allTime: [],
         }
     }
 
@@ -20,18 +22,44 @@ class DoctorSchedule extends Component {
         let { language } = this.props
 
         //format ngay theo VN va EN
-        console.log(moment(new Date()).format('dddd - DD/MM'));
-        console.log(moment(new Date()).locale('en').format('ddd - DD/MM'));
-        this.setArrDates(language)
-    }
+        // console.log(moment(new Date()).format('dddd - DD/MM'));
+        // console.log(moment(new Date()).locale('en').format('ddd - DD/MM'));
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.language !== this.props.language) {
-            this.setArrDates(this.props.language)
+
+        //lau lich kham ngay khi render
+        let allDays = await this.getArrDays(language)
+        if (allDays && allDays.length > 0) {
+            let res = await getScheduleDoctorByDate(this.props.detailDoctor, allDays[0].value)
+            this.setState({
+                allDays: allDays,
+            })
         }
     }
 
-    setArrDates = async (languageInput) => {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.language !== this.props.language) {
+            let allDays = await this.getArrDays(this.props.language)
+            this.setState({
+                allDays: allDays
+            })
+        }
+
+        if (prevProps.detailDoctor !== this.props.detailDoctor) {
+            let allDays = await this.getArrDays(this.props.language)
+            let res = await getScheduleDoctorByDate(this.props.detailDoctor, allDays[0].value)
+            if (res && res.errCode == 0) {
+                this.setState({
+                    allTime: res.data ? res.data : []
+                })
+            }
+        }
+    }
+
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    getArrDays = async (languageInput) => {
 
         let { language } = this.props
         let arrDate = []
@@ -40,9 +68,24 @@ class DoctorSchedule extends Component {
             let object = {};
 
             if (language === LANGUAGES.VI) {
-                object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM')
+                //set hôm nay với today cho ngày hiện thời
+                if (i === 0) {
+                    let ddMM = moment(new Date()).format('DD/MM')
+                    let today = `Hôm nay - ${ddMM}`
+                    object.label = today
+                } else {
+                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM')
+                    object.label = this.capitalizeFirstLetter(labelVi)
+                }
+
             } else {
-                object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM')
+                if (i === 0) {
+                    let ddMM = moment(new Date()).format('DD/MM')
+                    let today = `Today - ${ddMM}`
+                    object.label = today
+                } else {
+                    object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM')
+                }
             }
 
             //startOf('day') = lay thoi gian dau ngay (00.00.00) vi truong date trong db xai DatePicker chi lay dc ngay ko lay dc gio => bi set 00.00.00
@@ -50,9 +93,8 @@ class DoctorSchedule extends Component {
 
             arrDate.push(object)
         }
-        this.setState({
-            allDays: arrDate
-        })
+        console.log(arrDate);
+        return arrDate
     }
 
     handleOnChangeSelect = async (event) => {
@@ -61,11 +103,16 @@ class DoctorSchedule extends Component {
             let doctorId = this.props.detailDoctor
             let date = event.target.value // gia tri cua option
             let res = await getScheduleDoctorByDate(doctorId, date)
-            console.log(res);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allTime: res.data
+                })
+            }
         }
     }
     render() {
-        let { allDays } = this.state
+        let { allDays, allTime } = this.state
+        let { language } = this.props
         return (
             <div>
                 <div className='doctor-schedule-container'>
@@ -85,6 +132,25 @@ class DoctorSchedule extends Component {
                                 })}
                         </select>
                     </div>
+                    <div className='text-above'><i class="fas fa-calendar-alt"> </i><FormattedMessage id="patient.text-above" /></div>
+                    <div className='select-time'>
+                        {allTime && allTime.length > 0 ?
+                            allTime.map((item, index) => {
+                                let timeDisplay = language === LANGUAGES.EN ?
+                                    item.timeTypeData.valueEn : item.timeTypeData.valueVi
+                                return (
+                                    <button key={index}>{timeDisplay}</button>
+                                )
+                            })
+                            :
+                            <div style={{ fontStyle: 'italic' }}> <FormattedMessage id="patient.no-schedule" /></div>
+                        }
+                    </div>
+                    <div className='text-bottom'><FormattedMessage id="patient.text-bottom-choose" />
+
+                        <i class="far fa-hand-point-up"></i>
+
+                        <FormattedMessage id="patient.text-bottom-others" /></div>
                 </div>
             </div>
         );

@@ -69,5 +69,11 @@
         "choose-doctor": "Choose doctor",
         "choose-date": "Choose date",
         "btn-save": "Save"
+    },
+    "patient": {
+        "text-above": " schedule time",
+        "text-bottom-choose": "choose",
+        "text-bottom-others": "and book ( free fee )",
+        "no-schedule": "Doctor has no schedule in this time, please choose other day"
     }
 }

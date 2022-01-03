@@ -29,6 +29,7 @@ class ManageSchedule extends Component {
         this.props.fetchTimeDoctor()
     }
 
+
     builtDataInputSelect = (data) => {
         let result = []
         let { language } = this.props
@@ -138,7 +139,11 @@ class ManageSchedule extends Component {
             date: formateDate
         })
 
-        console.log('check api: ', res);
+        if (res && res.errCode === 0) {
+            toast.success("Saved");
+        } else {
+            toast.error("Error");
+        }
     }
 
     render() {
@@ -165,7 +170,7 @@ class ManageSchedule extends Component {
                                 onChange={this.handleOnchangeDate}
                                 className='form-control'
                                 value={this.state.currentDate}
-                                minDate={new Date()}
+                                minDate={new Date(new Date().setDate(new Date().getDate() - 1))}
                             />
                         </div>
                         <div className='col-12 pick-hour-container'>

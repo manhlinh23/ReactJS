@@ -1,9 +1,42 @@
 .doctor-schedule-container {
+    height: 180px;
     .select-day {
         .select-form {
             outline: none;
             cursor: pointer;
             font-size: 15px;
+            border: none;
+            border-bottom: 1px solid #333;
+        }
+    }
+
+    .text-above {
+        padding: 10px 0;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .text-bottom {
+        padding: 10px 0;
+        text-transform: uppercase;
+    }
+    .select-time {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        button {
+            border: none;
+            outline: none;
+            background: #fff8ae;
+            min-width: 180px;
+            padding: 7px 10px;
+            font-weight: 600px;
+            font-size: 18px;
+
+            &:hover {
+                background: #45c3d2;
+                color: white;
+            }
         }
     }
 }

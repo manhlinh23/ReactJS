@@ -75,5 +75,18 @@
         "text-bottom-choose": "choose",
         "text-bottom-others": "and book ( free fee )",
         "no-schedule": "Doctor has no schedule in this time, please choose other day"
+    },
+    "admin": {
+        "title": "CREATE INFORMATION DOCTOR",
+        "title-doctor": "Choose doctor",
+        "title-des": "Description",
+        "title-price": "Choose price",
+        "title-payment": "Choose payment",
+        "title-province": "Choose province",
+        "title-clinic-name": "Clinic's name",
+        "title-clinic-address": "Clinic's address",
+        "title-note": "Note",
+        "btn-create": "CREATE",
+        "btn-save": "SAVE"
     }
 }

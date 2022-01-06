@@ -75,5 +75,18 @@
         "text-bottom-choose": "chọn",
         "text-bottom-others": "và đăt ( phí đặt lịch 0đ )",
         "no-schedule": "Bác sĩ không có lịch hẹn trong thời gian này, vui lòng chọn ngày khác"
+    },
+    "admin": {
+        "title": "thêm thông tin bác sĩ",
+        "title-doctor": "Chọn bác sĩ",
+        "title-des": "Mô tả",
+        "title-price": "Chọn giá",
+        "title-payment": "Chọn phương thức thanh toán",
+        "title-province": "Chọn tỉnh thành",
+        "title-clinic-name": "Chọn tên phòng khám",
+        "title-clinic-address": "Chọn địa chỉ phòng khám",
+        "title-note": "Ghi chú",
+        "btn-create": "Tạo mới",
+        "btn-save": "Lưu"
     }
 }

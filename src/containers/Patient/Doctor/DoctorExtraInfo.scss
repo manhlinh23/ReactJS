@@ -1,0 +1,52 @@
+.doctor-extra-info-container {
+    .content-above {
+        margin-bottom: 15px;
+        .title-extra {
+            font-weight: 600;
+            color: #666;
+        }
+        .name-extra {
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        .address-extra {
+            font-size: 13px;
+            padding: 5px 0;
+        }
+    }
+
+    .content-bottom {
+        .title-extra {
+            padding: 5px 0;
+            span {
+                color: blue;
+                cursor: pointer;
+            }
+        }
+        .note-extra {
+            padding: 5px;
+            padding-bottom: 10px;
+            border: 1px solid #ddd;
+            .note-extra__title {
+                display: flex;
+                justify-content: space-between;
+                .note-extra__title__right {
+                }
+            }
+            .note-extra__content {
+                text-align: justify;
+                padding-right: 70px;
+                font-size: 12px;
+            }
+        }
+        .payment-extra {
+            padding: 5px;
+            border: 1px solid #ddd;
+            background: lightgray;
+        }
+    }
+    .hide {
+        color: blue;
+        cursor: pointer;
+    }
+}

@@ -146,6 +146,7 @@ class ManageDoctor extends Component {
             doctorId: this.state.selectedOption.id,
             //neu da co data thi se 'update' con chua co thi 'create'
             action: hasOldData === true ? CRUD_ACTIONS.UPDATE : CRUD_ACTIONS.CREATE,
+
             selectedProvince: this.state.selectedProvince.id,
             nameClinic: this.state.nameClinic,
             addressClinic: this.state.addressClinic,
@@ -163,23 +164,59 @@ class ManageDoctor extends Component {
     handleChangeSelect = async (selectedOption, name) => {
         this.setState({ selectedOption });
 
+        let { listPrice, listPayment, listProvince } = this.state
 
         let res = await getDetailDoctor(selectedOption.id)
         if (res && res.errCode === 0 && res.data && res.data.Markdown) {
             let markdown = res.data.Markdown
+            let { addressClinic, nameClinic, note, paymentId, priceId, provinceId, selectedPayment, selectedPrice, selectedProvince } = ''
+            if (res.data.Doctor_info) {
+                addressClinic = res.data.Doctor_info.addressClinic
+                nameClinic = res.data.Doctor_info.nameClinic
+                note = res.data.Doctor_info.note
+                paymentId = res.data.Doctor_info.paymentId
+                priceId = res.data.Doctor_info.priceId
+                provinceId = res.data.Doctor_info.provinceId
+
+                // tra ve 1 object gom label va id
+                selectedPayment = listPayment.find(item => {
+                    return item && item.id === paymentId
+                })
+                selectedPrice = listPrice.find(item => {
+                    return item && item.id === priceId
+                })
+                selectedProvince = listProvince.find(item => {
+                    return item && item.id === provinceId
+                })
+            } else {
+                this.setState({
+                    addressClinic: '',
+                    nameClinic: '',
+                    note: '',
+                })
+            }
             this.setState({
                 contentHTML: markdown.contentHTML,
                 contentMarkDown: markdown.contentMarkdown,
                 desc: markdown.description,
                 hasOldData: true,
+                addressClinic: addressClinic,
+                nameClinic: nameClinic,
+                note: note,
+                selectedPrice: selectedPrice,
+                selectedPayment: selectedPayment,
+                selectedProvince: selectedProvince,
             })
-            console.log('check ', this.state);
         } else {
             this.setState({
                 contentHTML: '',
                 contentMarkDown: '',
                 desc: '',
                 hasOldData: false,
+                listPayment: '',
+                selectedPrice: '',
+                selectedPayment: '',
+                selectedProvince: '',
             })
         }
         console.log(res);

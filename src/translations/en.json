@@ -74,7 +74,14 @@
         "text-above": " schedule time",
         "text-bottom-choose": "choose",
         "text-bottom-others": "and book ( free fee )",
-        "no-schedule": "Doctor has no schedule in this time, please choose other day"
+        "no-schedule": "Doctor has no schedule in this time, please choose other day",
+        "clinic": {
+            "price": "Price examination",
+            "address": "Address of clinic",
+            "payment": "The patient can pay the cost in the form of ",
+            "show": "Show details",
+            "hide": "Hide details"
+        }
     },
     "admin": {
         "title": "CREATE INFORMATION DOCTOR",

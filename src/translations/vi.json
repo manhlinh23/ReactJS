@@ -74,7 +74,14 @@
         "text-above": " lịch khám",
         "text-bottom-choose": "chọn",
         "text-bottom-others": "và đăt ( phí đặt lịch 0đ )",
-        "no-schedule": "Bác sĩ không có lịch hẹn trong thời gian này, vui lòng chọn ngày khác"
+        "no-schedule": "Bác sĩ không có lịch hẹn trong thời gian này, vui lòng chọn ngày khác",
+        "clinic": {
+            "price": "Giá khám",
+            "address": "Địa chỉ",
+            "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức ",
+            "show": "Xem chi tiết",
+            "hide": "Ẩn bảng giá"
+        }
     },
     "admin": {
         "title": "thêm thông tin bác sĩ",

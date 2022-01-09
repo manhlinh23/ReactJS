@@ -18,9 +18,10 @@
     .content-bottom {
         .title-extra {
             padding: 5px 0;
-            span {
+            .title-extra-detail {
                 color: blue;
                 cursor: pointer;
+                padding-left: 5px;
             }
         }
         .note-extra {

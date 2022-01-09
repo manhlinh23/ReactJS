@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss'
-import { getDetailDoctor } from '../../../services/userService'
+import { getExtraInfoDoctorById } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
-import DoctorExtraInfo from './DoctorExtraInfo.scss';
-
+import './DoctorExtraInfo.scss';
+import NumberFormat from 'react-number-format';
+import { FormattedMessage } from 'react-intl';
 
 class DetailDoctor extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isShowExtraInfo: false
+            isShowExtraInfo: false,
+            extraInfo: {},
         }
     }
 
@@ -20,6 +22,12 @@ class DetailDoctor extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.detailDoctor !== this.props.detailDoctor) {
+            let res = await getExtraInfoDoctorById(this.props.detailDoctor)
+            this.setState({
+                extraInfo: res.data
+            })
+        }
     }
 
     isShowExtraInfo = (status) => {
@@ -29,37 +37,61 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        let { isShowExtraInfo } = this.state
+        let { isShowExtraInfo, extraInfo } = this.state
+        let { language } = this.props
+        console.log(this.state);
         return (
             <>
                 <div className='doctor-extra-info-container'>
                     <div className='content-above'>
-                        <div className='title-extra'>ĐỊA CHỈ KHÁM</div>
-                        <div className='name-extra'>Phòng khám Chuyên khoa Da Liễu</div>
-                        <div className='address-extra'>207 Phố Huế - Hai Bà Trưng - Hà Nội</div>
+                        <div className='title-extra'><FormattedMessage id='patient.clinic.address' />:</div>
+                        <div className='name-extra'>{extraInfo && extraInfo.nameClinic ? extraInfo.nameClinic : ''}</div>
+                        <div className='address-extra'>{extraInfo && extraInfo.addressClinic ? extraInfo.addressClinic : ''}</div>
                     </div>
                     <div className='content-bottom'>
 
                         {isShowExtraInfo === false &&
                             <div
-                                className='title-extra'>GIÁ KHÁM: 300.000đ. <span onClick={() => this.isShowExtraInfo(true)} className='title-extra-detail'>Xem chi tiết</span></div>
+                                className='title-extra'>
+                                <FormattedMessage id='patient.clinic.price' />:
+                                {extraInfo && extraInfo.addressClinic && language === LANGUAGES.VI &&
+                                    <NumberFormat value={extraInfo.priceTypeData.valueVi}
+                                        displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} />
+                                }
+                                {extraInfo && extraInfo.addressClinic && language === LANGUAGES.EN &&
+                                    <NumberFormat value={extraInfo.priceTypeData.valueEn}
+                                        displayType={'text'} thousandSeparator={true} suffix={'$'} />
+                                }
+                                <span onClick={() => this.isShowExtraInfo(true)} className='title-extra-detail'><FormattedMessage id='patient.clinic.show' /></span></div>
                         }
                         {isShowExtraInfo === true &&
                             <div>
                                 <div>
                                     <div className='note-extra'>
                                         <div className='note-extra__title'>
-                                            <div>Giá khám</div>
-                                            <div className='note-extra__title__right'>300.000đ</div>
+                                            <div><FormattedMessage id='patient.clinic.price' />:</div>
+                                            <div className='note-extra__title__right'>
+                                                {extraInfo && extraInfo.addressClinic && language === LANGUAGES.VI &&
+                                                    <NumberFormat value={extraInfo.priceTypeData.valueVi}
+                                                        displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} />
+                                                }
+                                                {extraInfo && extraInfo.addressClinic && language === LANGUAGES.EN &&
+                                                    <NumberFormat value={extraInfo.priceTypeData.valueEn}
+                                                        displayType={'text'} thousandSeparator={true} suffix={' $'} />
+                                                }
+                                            </div>
                                         </div>
                                         <div className='note-extra__content'>
-                                            Được ưu tiên khám trước khi đật khám qua BookingCare. Giá khám cho người nước ngoài là 30 USD</div>
+                                            {extraInfo && extraInfo.note ? extraInfo.note : ''}
+                                        </div>
                                     </div>
-                                    <div className='payment-extra'>Người bệnh có thể thanh toán chi phí bằng hình thức tiền mặt và quẹt thẻ</div>
+                                    <div className='payment-extra'><FormattedMessage id='patient.clinic.payment' />:
+                                        {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.VI ? extraInfo.paymentTypeData.valueVi : extraInfo.paymentTypeData.valueEn}
+                                    </div>
                                 </div>
                                 <span
                                     onClick={() => this.isShowExtraInfo(false)}
-                                    className='hide'>Ẩn bảng giá</span>
+                                    className='hide'><FormattedMessage id='patient.clinic.hide' /></span>
                             </div>
                         }
                     </div>
@@ -71,8 +103,6 @@ class DetailDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
-        systemMenuPath: state.app.systemMenuPath,
-        isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
     };
 };

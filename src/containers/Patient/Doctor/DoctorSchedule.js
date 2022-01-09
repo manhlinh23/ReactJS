@@ -132,7 +132,7 @@ class DoctorSchedule extends Component {
                                 })}
                         </select>
                     </div>
-                    <div className='text-above'><i class="fas fa-calendar-alt"> </i><FormattedMessage id="patient.text-above" /></div>
+                    <div className='text-above'><i className="fas fa-calendar-alt"> </i><FormattedMessage id="patient.text-above" /></div>
                     <div className='select-time'>
                         {allTime && allTime.length > 0 ?
                             allTime.map((item, index) => {
@@ -148,7 +148,7 @@ class DoctorSchedule extends Component {
                     </div>
                     <div className='text-bottom'><FormattedMessage id="patient.text-bottom-choose" />
 
-                        <i class="far fa-hand-point-up"></i>
+                        <i className="far fa-hand-point-up"></i>
 
                         <FormattedMessage id="patient.text-bottom-others" /></div>
                 </div>

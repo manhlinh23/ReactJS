@@ -6,6 +6,7 @@ import localization from 'moment/locale/vi'
 import { LANGUAGES } from '../../../utils'
 import { getScheduleDoctorByDate } from '../../../services/userService'
 import { FormattedMessage } from 'react-intl';
+import BookingModal from './Modal/BookingModal';
 
 
 
@@ -15,6 +16,8 @@ class DoctorSchedule extends Component {
         this.state = {
             allDays: [],
             allTime: [],
+            isOpenModal: false,
+            dataTimeSchedule: {}
         }
     }
 
@@ -110,8 +113,21 @@ class DoctorSchedule extends Component {
             }
         }
     }
+
+    handelClickScheduleTime = (item) => {
+        this.setState({
+            isOpenModal: true,
+            dataTimeSchedule: item
+        })
+    }
+
+    isCloseModal = () => {
+        this.setState({
+            isOpenModal: false
+        })
+    }
     render() {
-        let { allDays, allTime } = this.state
+        let { allDays, allTime, isOpenModal, dataTimeSchedule } = this.state
         let { language } = this.props
         return (
             <div>
@@ -139,7 +155,9 @@ class DoctorSchedule extends Component {
                                 let timeDisplay = language === LANGUAGES.EN ?
                                     item.timeTypeData.valueEn : item.timeTypeData.valueVi
                                 return (
-                                    <button key={index}>{timeDisplay}</button>
+                                    <button key={index}
+                                        onClick={() => this.handelClickScheduleTime(item)}
+                                    >{timeDisplay}</button>
                                 )
                             })
                             :
@@ -152,6 +170,13 @@ class DoctorSchedule extends Component {
 
                         <FormattedMessage id="patient.text-bottom-others" /></div>
                 </div>
+
+                <BookingModal
+
+                    isOpenModal={isOpenModal}
+                    isCloseModal={this.isCloseModal}
+                    dataTimeSchedule={dataTimeSchedule}
+                />
             </div>
         );
     }

@@ -86,7 +86,8 @@ class DetailDoctor extends Component {
                                         </div>
                                     </div>
                                     <div className='payment-extra'><FormattedMessage id='patient.clinic.payment' />:
-                                        {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.VI ? extraInfo.paymentTypeData.valueVi : extraInfo.paymentTypeData.valueEn}
+                                        {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.VI && extraInfo.paymentTypeData.valueVi}
+                                        {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.EN && extraInfo.paymentTypeData.valueEn}
                                     </div>
                                 </div>
                                 <span

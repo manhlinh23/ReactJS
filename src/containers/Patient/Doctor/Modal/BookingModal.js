@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './BookingModal.scss'
 import { Modal } from 'reactstrap';
+import ProfileDoctor from '../ProfileDoctor';
 
 
 class BookingModal extends Component {
@@ -16,7 +17,8 @@ class BookingModal extends Component {
 
     render() {
         let { isOpenModal, isCloseModal, dataTimeSchedule } = this.props
-        console.log(this.props);
+        let doctorId = dataTimeSchedule && dataTimeSchedule.doctorId ? dataTimeSchedule.doctorId : ''
+        console.log('check props modal', this.props);
         return (
             <>
                 <Modal
@@ -37,9 +39,12 @@ class BookingModal extends Component {
                             </span>
                         </div>
                         <div className='booking-modal-body'>
+                            <ProfileDoctor
+                                doctorId={doctorId}
+                            >
+                            </ProfileDoctor>
                             <div className='booking-modal-body__price'>
-                                {/* {JSON.stringify(dataTimeSchedule)} */}
-                                Giá khám: 500.000 VNĐ</div>
+                            </div>
                             <div className='booking-modal-body__fill-in row'>
                                 <div className='col-6 form-group'>
                                     <label>Họ và tên</label>

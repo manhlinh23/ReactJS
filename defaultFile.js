@@ -11,6 +11,11 @@ class defaultFile extends Component {
         }
     }
 
+    async componentDidMount() {
+    }
+
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+    }
 
     render() {
         return (

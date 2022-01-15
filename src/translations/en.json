@@ -95,5 +95,19 @@
         "title-note": "Note",
         "btn-create": "CREATE",
         "btn-save": "SAVE"
+    },
+    "modal": {
+        "name": "Full name",
+        "phone": "Phone number",
+        "email": "Email",
+        "address": "Address",
+        "reason": "Reason",
+        "birthday": "Date of birth",
+        "gender": "Gender",
+        "price": "Price",
+        "free-fee": "Free fee booking",
+        "info": "Information to book a medical appointment",
+        "btn-save": "Save",
+        "btn-cancel": "Cancel"
     }
 }

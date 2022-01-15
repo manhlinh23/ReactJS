@@ -95,5 +95,19 @@
         "title-note": "Ghi chú",
         "btn-create": "Tạo mới",
         "btn-save": "Lưu"
+    },
+    "modal": {
+        "name": "Họ và tên",
+        "phone": "Số điện thoại",
+        "email": "Địa chỉ email",
+        "address": "Địa chỉ liên hệ",
+        "reason": "Lý do khám",
+        "birthday": "Ngày tháng năm sinh",
+        "gender": "Giới tính",
+        "price": "Giá khám",
+        "free-fee": "Miễn phí đặt lịch",
+        "info": "Thông tin đặt lịch khám bệnh",
+        "btn-save": "Xác nhận",
+        "btn-cancel": "Hủy bỏ"
     }
 }

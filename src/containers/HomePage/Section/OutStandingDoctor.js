@@ -29,14 +29,11 @@ class OutStandingDoctor extends Component {
 
     //khai bao dong bien id cua bac si
     handleViewDetailDoctor = (doctor) => {
-        console.log('check details', doctor);
         this.props.history.push(`/detail-doctor/${doctor.id}`)
     }
     render() {
         let { language } = this.props
         let arrDoctors = this.state.arrDoctors
-        // arrDoctors = arrDoctors.concat(arrDoctors)
-        console.log('check state topDoctors', this.props.topDoctors);
         return (
             <div className='section-share section-outstanding-doctor'>
                 <div className='section-container'>
@@ -49,9 +46,6 @@ class OutStandingDoctor extends Component {
                         <Slider {...this.props.settings}>
                             {arrDoctors && arrDoctors.length > 0 &&
                                 arrDoctors.map((item, index) => {
-                                    // if (index === 0) {
-                                    //     console.log(item);
-                                    // }
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary')

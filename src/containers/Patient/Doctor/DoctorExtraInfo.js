@@ -18,7 +18,12 @@ class DetailDoctor extends Component {
     }
 
     async componentDidMount() {
-
+        if (this.props.detailDoctor) {
+            let res = await getExtraInfoDoctorById(this.props.detailDoctor)
+            this.setState({
+                extraInfo: res.data
+            })
+        }
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {

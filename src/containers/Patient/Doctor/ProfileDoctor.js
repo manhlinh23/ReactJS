@@ -22,15 +22,21 @@ class ProfileDoctor extends Component {
     }
 
     async componentDidMount() {
-        let data = await this.getProfileDoctor(this.props.doctorId)
-        this.setState({
-            profileDoctor: data
-        })
+        if (this.props.doctorId) {
+            let data = await this.getProfileDoctor(this.props.doctorId)
+            this.setState({
+                profileDoctor: data
+            })
+        }
+
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.doctorId !== prevProps.doctorId) {
-
+            let data = await this.getProfileDoctor(this.props.doctorId)
+            this.setState({
+                profileDoctor: data
+            })
         }
     }
 

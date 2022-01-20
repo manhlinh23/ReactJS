@@ -1,9 +1,28 @@
 .detail-specialty-container {
+    background: #eeee;
+    padding-top: 10px;
     .detail-specialty-content {
-        margin: 20px 100px;
+        margin: 0 100px;
+        background: #eeee;
+        min-height: 1000px;
         .des {
+            padding: 18px;
+            box-shadow: 0 1px 6px #20212447;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        .select {
+            select {
+                border: none;
+                outline: none;
+                padding: 5px 10px;
+                box-shadow: 0 1px 6px #20212447;
+            }
         }
         .each-doctor {
+            background: white;
+            border-radius: 5px;
             display: flex;
             width: 100%;
             box-shadow: 0 1px 6px #20212447;

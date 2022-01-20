@@ -8,6 +8,7 @@ import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
 import localization from 'moment/locale/vi'
+import { Link } from 'react-router-dom'
 
 
 
@@ -82,7 +83,7 @@ class ProfileDoctor extends Component {
         console.log('check state', this.state);
         console.log(this.props);
         let { profileDoctor } = this.state
-        let { language, isShowProfile, dataTimeSchedule } = this.props
+        let { language, isShowProfile, dataTimeSchedule, isShowPrice, isShowMore, doctorId } = this.props
         let labelEn = '', labelVi = ''
         if (profileDoctor && profileDoctor.positionData) {
             labelEn = `${profileDoctor.positionData.valueEn} ${profileDoctor.firstName} ${profileDoctor.lastName}`
@@ -114,16 +115,25 @@ class ProfileDoctor extends Component {
                         }
                     </div>
                 </div>
-                <div>Giá khám:
-                    {profileDoctor && profileDoctor.Doctor_info && language === LANGUAGES.VI &&
-                        <NumberFormat value={profileDoctor.Doctor_info.priceTypeData.valueVi}
-                            displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} />
-                    }
-                    {profileDoctor && profileDoctor.Doctor_info && language === LANGUAGES.EN &&
-                        <NumberFormat value={profileDoctor.Doctor_info.priceTypeData.valueEn}
-                            displayType={'text'} thousandSeparator={true} suffix={'$'} />
-                    }
-                </div>
+                {isShowMore === true &&
+                    //react-router-link
+                    <div>
+                        <Link to={`/detail-doctor/${doctorId}`}>Xem them</Link>
+                    </div>
+                }
+                {isShowPrice === true &&
+                    <div>Giá khám:
+                        {profileDoctor && profileDoctor.Doctor_info && language === LANGUAGES.VI &&
+                            <NumberFormat value={profileDoctor.Doctor_info.priceTypeData.valueVi}
+                                displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} />
+                        }
+                        {profileDoctor && profileDoctor.Doctor_info && language === LANGUAGES.EN &&
+                            <NumberFormat value={profileDoctor.Doctor_info.priceTypeData.valueEn}
+                                displayType={'text'} thousandSeparator={true} suffix={'$'} />
+                        }
+                    </div>
+                }
+
             </>
         )
     }

@@ -118,7 +118,7 @@ class ProfileDoctor extends Component {
                 {isShowMore === true &&
                     //react-router-link
                     <div>
-                        <Link to={`/detail-doctor/${doctorId}`}>Xem them</Link>
+                        <Link to={`/detail-doctor/${doctorId}`}>Xem thêm</Link>
                     </div>
                 }
                 {isShowPrice === true &&

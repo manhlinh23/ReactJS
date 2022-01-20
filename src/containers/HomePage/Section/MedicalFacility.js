@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { getClinic } from '../../../services/userService'
 import Slider from 'react-slick';
+import { withRouter } from 'react-router'
+import { useHistory } from "react-router-dom";
+
 
 class MedicalFacility extends Component {
 
-    render() {
+    constructor(props) {
+        super(props)
+        this.state = {
+            arrClinic: []
+        }
+    }
 
+    async componentDidMount() {
+        let res = await getClinic()
+        this.setState({
+            arrClinic: res.data
+        })
+    }
+
+    handleViewDetailDoctor = (item) => {
+        this.props.history.push(`/detail-clinic/${item.id}`)
+    }
+    render() {
+        let { arrClinic } = this.state
         return (
             <div className='section-share section-medical-facility'>
                 <div className='section-container'>
@@ -17,30 +37,20 @@ class MedicalFacility extends Component {
 
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
-                            <div className='section-customize'>
-                                <div className='bg-image section-medical-facility'></div>
-                                <div>Phòng khám đa khoa Singapore Indochina Healthcare Group (SIHG)</div>
-                            </div>
-                            <div className='section-customize'>
-                                <div className='bg-image section-medical-facility'></div>
-                                <div>Phòng khám đa khoa Singapore Indochina Healthcare Group (SIHG) 1</div>
-                            </div>
-                            <div className='section-customize'>
-                                <div className='bg-image section-medical-facility'></div>
-                                <div>Phòng khám đa khoa Singapore Indochina Healthcare Group (SIHG) 2</div>
-                            </div>
-                            <div className='section-customize'>
-                                <div className='bg-image section-medical-facility'></div>
-                                <div>Phòng khám đa khoa Singapore Indochina Healthcare Group (SIHG) 3</div>
-                            </div>
-                            <div className='section-customize'>
-                                <div className='bg-image section-medical-facility'></div>
-                                <div>Phòng khám đa khoa Singapore Indochina Healthcare Group (SIHG) 4</div>
-                            </div>
-                            <div className='section-customize'>
-                                <div className='bg-image section-medical-facility'></div>
-                                <div>Phòng khám đa khoa Singapore Indochina Healthcare Group (SIHG) 5</div>
-                            </div>
+                            {arrClinic && arrClinic.length > 0 &&
+                                arrClinic.map((item, index) => {
+                                    return (
+                                        <div className='section-customize' key={index}>
+                                            <div
+                                                onClick={() => this.handleViewDetailDoctor(item)}
+                                                style={{ backgroundImage: `url(${item.image})`, cursor: 'pointer' }}
+                                                className='bg-image section-medical-facility'></div>
+                                            <div>{item.name}</div>
+                                        </div>
+                                    )
+                                })
+                            }
+
                         </Slider>
                     </div>
                 </div>
@@ -61,4 +71,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MedicalFacility));

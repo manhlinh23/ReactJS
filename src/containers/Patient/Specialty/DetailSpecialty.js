@@ -10,11 +10,7 @@ import { getDetailSpecialtyAndDoctorOfSpecialty, getAllCodeServives } from '../.
 import _ from 'lodash';
 import { LANGUAGES } from '../../../utils';
 
-
-
-
-
-class DetailSpecialty extends Component {
+class DetailClinic extends Component {
 
     constructor(props) {
         super(props)
@@ -181,6 +177,6 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailClinic);
 
 

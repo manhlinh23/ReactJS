@@ -29,7 +29,8 @@
         },
         "doctor": {
             "schedule": "Schedule",
-            "manage-schedule": "Manage Doctor's schedule"
+            "manage-schedule": "Manage Doctor's schedule",
+            "patient": "Patient"
         },
         "admin": {
             "manage-user": "User",

@@ -9,6 +9,8 @@ import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
 
 
+
+
 class System extends Component {
     render() {
 
@@ -23,8 +25,6 @@ class System extends Component {
                             <Route path="/system/manage-doctor" component={ManageDoctor} />
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />
                             <Route path="/system/manage-clinic" component={ManageClinic} />
-
-
                             <Route component={
                                 () => {
                                     return (<Redirect to={systemMenuPath} />)

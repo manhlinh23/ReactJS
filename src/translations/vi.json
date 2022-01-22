@@ -42,7 +42,8 @@
         },
         "doctor": {
             "schedule": "Lịch khám bệnh",
-            "manage-schedule": "Quản lý lịch khám bệnh"
+            "manage-schedule": "Quản lý lịch khám bệnh",
+            "patient": "Bệnh nhân"
         }
     },
     "manage-user": {

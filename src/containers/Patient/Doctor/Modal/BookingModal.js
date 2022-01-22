@@ -131,17 +131,19 @@ class BookingModal extends Component {
         let timeString = this.buildTimeData(this.props.dataTimeSchedule)
         let doctorName = this.buildNameData(this.props.dataTimeSchedule)
         let res = await postBookAppointment({
-            name: doctorName,
             doctorId: this.state.doctorId,
             phone: this.state.phone,
             email: this.state.email,
+            name: this.state.name,
+            phonenumber: this.state.phone,
             address: this.state.address,
+            selectedGenders: this.state.selectedGenders.value,
             reason: this.state.reason,
-            date: date,
+            date: this.props.dataTimeSchedule.date,
             language: this.props.language,
             timeType: this.state.timeType,
-            selectedGenders: this.state.selectedGenders.value,
-            timeString: timeString
+            timeString: timeString,
+            doctorName: doctorName
         })
 
         if (res && res.errCode === 0) {

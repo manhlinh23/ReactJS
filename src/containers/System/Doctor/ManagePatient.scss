@@ -1,9 +1,18 @@
 .manage-patient-container {
     padding: 0 20px;
+    height: 100vh;
     .manage-patient-content {
         button.btn.btn-lg {
             padding: 0 10px;
             margin: 0 5px;
         }
+    }
+}
+
+._loading_overlay_wrapper._loading_overlay_wrapper--active.css-79elbk {
+    position: unset;
+    height: 100vh;
+    ._loading_overlay_overlay.css-df17o1 {
+        z-index: 10000000;
     }
 }

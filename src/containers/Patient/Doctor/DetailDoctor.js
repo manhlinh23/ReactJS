@@ -6,6 +6,8 @@ import { getDetailDoctor } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
+import LikeShare from '../SocialPlugin/LikeShare';
+import Comment from '../SocialPlugin/Comment';
 
 
 class DetailDoctor extends Component {
@@ -65,7 +67,9 @@ class DetailDoctor extends Component {
                                     && <div>
                                         {detailDoctor.Markdown.description}
                                     </div>
+
                                 }
+                                <LikeShare />
                             </div>
                         </div>
                     </div>
@@ -88,7 +92,10 @@ class DetailDoctor extends Component {
                             </div>
                         }
                     </div>
-                    <div className='comment-doctor'></div>
+                    <div className='comment-doctor'>
+                        <Comment
+                            width={"100%"} />
+                    </div>
                 </div>
             </>
         );
